@@ -1,0 +1,65 @@
+<html>
+<head>
+<style>
+	body {
+		font-family: sans-serif;
+	}
+	label {
+		display: block;
+		width: 25em;
+		text-align: right;
+	}
+	input {
+		width: 100px;
+	}
+</style>
+</head>
+<body>
+	<label>Trim [km/h]
+		<input type="text" id="trim">
+	</label>
+	<label>Eigensinken [m/s]
+		<input type="text" id="sinken">
+	</label>
+	<label>Windgeschwindigkieit [km/h]
+		<input type="text" id="wind">
+	</label>
+	<label>Höhe [m]
+		<input type="text" id="hoehe">
+	</label>
+	<label>Steigen [m/s]
+		<input type="text" id="steigen">
+	</label>
+	<label>
+		<input type="button" value="Berechnen" onclick="berechnen();">
+	</label>
+
+	<ul>
+		<li>Flugdistanz: <span id="flugdistanz"></span> km</li>
+		<li>Windversatz: <span id="windversatz"></span> km</li>
+		<li>Gewinn pro Meter: <span id="gewinn"></span> m</li>
+	</ul>
+
+	<script type="text/javascript">
+		function berechnen() {
+			function el(id) {
+				return document.getElementById(id);
+			}
+
+			var trim = el("trim").value;
+			var sinken = el("sinken").value;
+			var wind = el("wind").value;
+			var hoehe = el("hoehe").value;
+			var steigen = el("steigen").value;
+			console.log(trim, sinken, wind, hoehe, steigen);
+
+			flugdistanz = (trim - wind) * (hoehe / sinken);
+			windversatz = wind * (hoehe / steigen);
+			console.log(flugdistanz, windversatz);
+			el("flugdistanz").innerText = flugdistanz;
+			el("windversatz").innerText = windversatz;
+			el("gewinn").innerText = (flugdistanz - windversatz) / 1000;
+		}
+
+	</script>
+</body>
